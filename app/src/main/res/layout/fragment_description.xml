@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/uber_desc_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="rides with uber"
+        android:layout_alignParentBottom="true"/>
+    <TextView
+        android:id="@+id/descriptions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/uber_desc_button"
+        android:scrollbars="vertical"
+        android:text="Lorem ipsum dolor sit amet, sale causae mediocritatem an sea, offendit quaestio abhorreant ei cum. At est facilis interesset, oratio primis eleifend quo in. Sit dicta theophrastus cu, in graeco disputando vix, dicant doctus duo an. Eam graece dolorum ea. Cum ea regione tractatos, est no amet scaevola oporteat.
+
+Abhorreant constituto cum ei, ut eum menandri accusamus, ex dignissim assentior eos. Ius equidem phaedrum et. Vix alii rebum ei, vix sumo tempor ne, posse senserit scriptorem cum ex. Augue mentitum deterruisset mei ea, at eam accumsan copiosae gloriatur. Everti corrumpit reformidans est no.
+
+Movet simul senserit cu qui, id eos ipsum consulatu referrentur. In mundi omnes vituperata nam, homero conclusionemque qui te, nonumes laboramus ius ut. Nec ad erat mutat. No suas nostrum has.
+
+Ex duo harum graecis adipiscing, est augue dicam adolescens ei, sed an eirmod latine. Cum eu dictas audiam, ut illud deleniti cum. Has purto sanctus detraxit eu, in mei tale conclusionemque, in mei fabellas adipisci inimicus. Labore fastidii invidunt vix ei, sint denique voluptua ius no, tale salutatus reprimique ne sit. Ea dolores erroribus necessitatibus cum, quaeque expetendis quo ei, ex quem lucilius mei. Eos vidit efficiendi ne, eu eam justo contentiones.
+
+Lorem debitis eos ex, elit saperet cum ne. Id autem integre fierent sea, discere partiendo conclusionemque at est. Sit ei odio honestatis comprehensam, has omnis facete accumsan id. Pertinax sensibus deseruisse his ei, te ferri noster suavitate cum. Vim id adipisci consulatu, ea aperiri euripidis sit. Civibus tibique temporibus et mea, qui ut solet fierent consequuntur."
+        />
+</RelativeLayout>

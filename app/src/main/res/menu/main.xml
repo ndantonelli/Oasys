@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.hmkcode.app.MainActivity" >
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Something"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_find_location"
+        android:orderInCategory="101"
+        android:title="something2"
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="always"
+        />
+
+</menu>
