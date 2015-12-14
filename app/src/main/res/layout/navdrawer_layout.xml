@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="250dp"
     android:layout_height="match_parent"
-    android:background="#59B7CD">
+    android:background="#fff">
     <include layout="@layout/component_nav_header"/>
     <Button
         android:id="@+id/uber_button"
@@ -10,9 +10,9 @@
         android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
-        android:background="#fff"
         android:text="Ride With Uber"
-        android:textColor="#000"
+        android:alpha=".5"
+        android:clickable="false"
         />
     <ListView
         android:id="@+id/uber_selection_list"
@@ -20,8 +20,6 @@
         android:layout_height="150dp"
         android:layout_above="@id/uber_button"
         android:choiceMode="singleChoice"
-        android:divider="#000"
-        android:dividerHeight="1px"
         android:focusable="false"
         android:focusableInTouchMode="false"/>
     <View
@@ -44,6 +42,7 @@
             android:text="Sort Popular: "
             android:gravity="center|bottom"
             android:paddingStart="10dp"
+            android:textColor="#000"
             android:paddingEnd="5dp"
             android:textSize="14sp"/>
         <Button
@@ -76,22 +75,24 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".15"
-            android:text="0 min"
+            android:text="0 h"
+            android:textColor="#000"
             android:textSize="12sp"
             android:gravity="center"/>
         <SeekBar
             android:id="@+id/time_seekbar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:max="180"
-            android:progress="90"
+            android:max="24"
+            android:progress="12"
             android:layout_weight=".7"/>
         <TextView
             android:id="@+id/max_time"
             android:layout_width="0dp"
+            android:textColor="#000"
             android:layout_height="match_parent"
             android:layout_weight=".15"
-            android:text="3 h"
+            android:text="24 h"
             android:textSize="12sp"
             android:gravity="center"/>
     </LinearLayout>
@@ -103,12 +104,13 @@
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true"
         android:layout_above="@id/seekbar">
-        <EditText
+        <TextView
             android:id="@+id/time_input"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:text="90"
+            android:text="12"
             android:layout_marginEnd="5dp"
+            android:textColor="#000"
             android:textSize="13sp"
             android:maxLength="4"
             android:maxLines="1"
@@ -118,7 +120,7 @@
             android:layout_width="70dp"
             android:layout_height="20dp"
             android:background="@color/my_primary_dark"
-            android:text="Min."
+            android:text="Hour"
             android:textSize="10sp"
             />
         <Button
@@ -127,13 +129,14 @@
             android:layout_height="20dp"
             android:background="@color/my_primary"
             android:alpha=".7"
-            android:text="Hour"
+            android:text="Day"
             android:textSize="10sp"
             />
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#000"
         android:layout_above="@id/upcoming_time"
         android:text="Upcoming Time Span: "
         android:gravity="center"

@@ -3,29 +3,18 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="@color/my_primary">
-
     <ImageView
-        android:id="@+id/user_image"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:src ="#fff"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/user"
+        android:layout_centerInParent="true"/>
     <TextView
         android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:gravity="center"
         android:text="Someone's name"
-        android:gravity="left|bottom"
-        android:textSize="15sp"
-        android:layout_toRightOf="@id/user_image"
+        android:textSize="25sp"
         android:layout_alignParentBottom="true"/>
-    <ImageView
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_toRightOf="@id/username"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="13dp"
-        android:src="@mipmap/edit_pencil"/>
 </RelativeLayout>

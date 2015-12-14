@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="175dp"
+    android:layout_height="203dp"
     android:background="#fff">
     <ImageView
+        android:id="@+id/event_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="#fff"/>
+        />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -22,6 +23,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginStart="15dp"/>
     <TextView
+        android:id="@+id/event_title"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:text="Some Title"
@@ -39,7 +41,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerHorizontal="true"
-            android:src="#fff"/>
+            android:alpha=".5"
+            android:src="@drawable/checkmark"/>
         <TextView
             android:id="@+id/attendance_count"
             android:layout_width="wrap_content"
@@ -50,19 +53,32 @@
             android:textSize="12sp"
             />
     </RelativeLayout>
-    <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:src="#000"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
-    <TextView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="50\nmin"
-        android:textSize="22sp"
-        android:gravity="center"
-        />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/rounded_back">
+        <TextView
+            android:id="@+id/startTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7:30PM"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="15sp"/>
+        <TextView
+            android:id="@+id/startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12/1/15"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:layout_below="@id/startTime"/>
+    </RelativeLayout>
 </RelativeLayout>

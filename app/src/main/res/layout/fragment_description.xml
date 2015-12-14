@@ -11,10 +11,12 @@
         android:layout_alignParentBottom="true"/>
     <TextView
         android:id="@+id/descriptions"
+        android:textColor="#000"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/uber_desc_button"
         android:scrollbars="vertical"
+        android:layout_margin="5dp"
         android:text="Lorem ipsum dolor sit amet, sale causae mediocritatem an sea, offendit quaestio abhorreant ei cum. At est facilis interesset, oratio primis eleifend quo in. Sit dicta theophrastus cu, in graeco disputando vix, dicant doctus duo an. Eam graece dolorum ea. Cum ea regione tractatos, est no amet scaevola oporteat.
 
 Abhorreant constituto cum ei, ut eum menandri accusamus, ex dignissim assentior eos. Ius equidem phaedrum et. Vix alii rebum ei, vix sumo tempor ne, posse senserit scriptorem cum ex. Augue mentitum deterruisset mei ea, at eam accumsan copiosae gloriatur. Everti corrumpit reformidans est no.

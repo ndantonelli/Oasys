@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/time_layout" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#59B7CD">
+    android:background="#fff"
+    android:layout_alignParentBottom="true">
     <include layout="@layout/component_event_header" android:id="@+id/header"/>
     <android.support.design.widget.TabLayout
         android:id="@+id/eventTabLayout"
