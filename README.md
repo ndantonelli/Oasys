@@ -11,13 +11,21 @@ Oasys is an end to end Event experience.  Oasys encompasses everything from crea
 
 ## Functionality
 
-- Search for music by Artist, Album, Song, and so much more
-- View your last 5 searches for quick searching things you love
-- View the results with their appealing art
-- Quickly know if the song is explicit by the red title
-- Play the 30 second music sample to make sure it is right
-- Click the star in the top right corner to favorite a song
-- Click the title for more information like artist, album, and price
+- Image Focussed Design
+- View Events in the Dallas area
+- View events by upcoming events in time sorted order (soonest first)
+- View events by popularity.  Either through number of comments or attendees
+- View events that you are planning on attending.
+- View the weather forecast for the next 3 days. Provided by Weather Underground
+- Weather included because the conditions outside are very important considerations when going out
+- Change the time span for how many upcoming events are displayed
+- Select one of your upcoming events that you are attending and rider there with Uber deeplinking
+- View Event specific details like start time and date
+- Socially focussed event information
+- Click the checkmark to attend the event
+- Comment on an event to show your interest
+- View all other users comments
+- So much more great functionality
 
 ## API Reference
 
@@ -26,13 +34,10 @@ Oasys is an end to end Event experience.  Oasys encompasses everything from crea
 - Parceler: [Parcelable Service](https://github.com/johncarl81/parceler)
 - Butterknife: [Field binding](http://jakewharton.github.io/butterknife/)
 - Picasso: [Image Loading](http://square.github.io/picasso/)
-- ActiveAndroid: [SQLite Persistence](http://www.activeandroid.com)
+- Uber: [Deep Linking](https://developer.uber.com/v1/deep-linking/)
+- GSON: [Serialization Library](https://github.com/google/gson)
 - Otto: [Enhanced Event Bus](http://square.github.io/otto/)
 
 ## Installation
 
 Please either fork the repo, or contact me asking for an APK so that you can test it out for yourself.
-
-## Contributors
-
-Erik Gabrielsen: Also a student at SMU
