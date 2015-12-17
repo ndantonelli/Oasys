@@ -4,10 +4,10 @@ Oasys is an end to end Event experience.  Oasys encompasses everything from crea
 
 ## Screenshots
 
-![Home Screen](img/HomeScreen)
-![Navigation Drawer](img/NavDrawer)
-![Event Information](img/Description)
-![Event Comments](img/Comments)
+![Home Screen](img/HomeScreen.png)
+![Navigation Drawer](img/NavDrawer.png)
+![Event Information](img/Description.png)
+![Event Comments](img/Comments.png)
 
 ## Functionality
 
