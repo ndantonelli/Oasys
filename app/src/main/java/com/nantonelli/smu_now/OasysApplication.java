@@ -28,38 +28,55 @@ import retrofit.client.Response;
 
 /**
  * Created by ndantonelli on 9/29/15.
+ * base application used to hold all info for a specific user
+ * holds the user id and the advertising ID along with username and formating
  */
 public class OasysApplication extends Application {
-    @Inject
-    OasysRestfulAPI service;
+    @Inject OasysRestfulAPI service;
+
     public boolean onFirstT = true;
     public boolean onFirstP = true;
     public boolean onFirstM = true;
+
     public String adId = "";
     public String username = "";
     public String timeFormat = "";
     public String popularity = "";
+
     public int uid = 0;
+
     private ObjectGraph objectGraph;
     private static OasysApplication myApp;
+
+    //allows for non activities/fragments to inject singletons
     public static OasysApplication getInstance(){
         return myApp;
     }
+
+
     @Override
     public void onCreate(){
         super.onCreate();
         myApp = this;
         objectGraph = ObjectGraph.create(new OasysModule(getApplicationContext()));
         objectGraph.inject(this);
+
+        //uses preferences to get the user id for the phone
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getInstance());
         uid = prefs.getInt("uid", 0);
-        new GetGAIDTask().execute();
+
+        if(uid > 0)
+            new GetADIDTask().execute();
     }
+
+    //object graph to inject the singletons into the classes that register
     public ObjectGraph getObjectGraph(){
         return objectGraph;
     }
 
-    private class GetGAIDTask extends AsyncTask<String, Integer, String> {
+    //async task to get the Google Advertising ID
+    //use the Advertising ID to uniquely identify the user and avoid login
+    private class GetADIDTask extends AsyncTask<String, Integer, String> {
 
         @Override
         protected String doInBackground(String... strings) {
@@ -68,7 +85,7 @@ public class OasysApplication extends Application {
             try {
                 adInfo = AdvertisingIdClient.getAdvertisingIdInfo(getInstance());
                 if (adInfo.isLimitAdTrackingEnabled()) // check if user has opted out of tracking
-                    return "did not find GAID ... sorry";
+                    return "did not find ADID ... sorry";
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (GooglePlayServicesNotAvailableException e) {
@@ -84,7 +101,10 @@ public class OasysApplication extends Application {
         @Override
         protected void onPostExecute(String s) {
             adId = s;
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getInstance());
+
+            //if the first load, need to register the device with the server and get a user id
+            final SharedPreferences prefs = PreferenceManager
+                                            .getDefaultSharedPreferences(getInstance());
             boolean firstLoad = prefs.getBoolean("firstLoad", true);
             if(firstLoad) {
                 service.createUser(adId, username, new Callback<UserResponse>() {

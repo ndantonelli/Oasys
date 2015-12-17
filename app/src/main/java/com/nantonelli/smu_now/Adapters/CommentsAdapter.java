@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * Created by ndantonelli on 12/12/15.
+ * adapter for filling in the comments on an event
  */
 public class CommentsAdapter extends ArrayAdapter<Comment> {
     private static class ViewHolder{
@@ -27,15 +28,14 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
     }
     private List<Comment> comments;
     private Context context;
-    private Picasso picasso;
 
-    public CommentsAdapter(Context context, List<Comment> comments, Picasso picasso){
+    public CommentsAdapter(Context context, List<Comment> comments){
         super(context, 0, comments);
         this.comments = comments;
         this.context = context;
-        this.picasso = picasso;
     }
 
+    //refresh the comments in the list
     public void refresh(List<Comment> newComments){
         this.comments = newComments;
         notifyDataSetChanged();
@@ -50,16 +50,14 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.component_comment, parent, false);
             viewHolder.comment = (TextView) convertView.findViewById(R.id.comment_text);
-//            viewHolder.author = (TextView) convertView.findViewById(R.id.author);
             viewHolder.report = (ImageView) convertView.findViewById(R.id.comment_flag);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        // Populate the data into the template view using the data object
+
+        //will later be used to add flagging comment code
         viewHolder.comment.setText(comment.toString());
-//        viewHolder.author.setText(comment.getName());
-//        picasso.load(R.drawable.flag).into(viewHolder.report);
         viewHolder.report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +65,7 @@ public class CommentsAdapter extends ArrayAdapter<Comment> {
                 viewHolder.report.setOnClickListener(null);
             }
         });
-        // Return the completed view to render on screen
+
         return convertView;
     }
 }

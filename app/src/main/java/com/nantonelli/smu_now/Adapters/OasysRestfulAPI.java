@@ -23,6 +23,7 @@ import retrofit.http.QueryMap;
 
 /**
  * Created by ndantonelli on 9/29/15.
+ * restful api interface to get all information for the event related http requests
  */
 public interface OasysRestfulAPI {
     @GET("/events")

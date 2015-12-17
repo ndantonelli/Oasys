@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SMU_NOW.iml" filepath="$PROJECT_DIR$/SMU_NOW.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Oasys.iml" filepath="$PROJECT_DIR$/Oasys.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

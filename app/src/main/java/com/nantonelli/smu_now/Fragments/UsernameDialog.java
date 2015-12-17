@@ -16,6 +16,7 @@ import com.nantonelli.smu_now.R;
 
 /**
  * Created by ndantonelli on 12/10/15.
+ * dialog fragment used to change the users username
  */
 public class UsernameDialog extends DialogFragment {
 

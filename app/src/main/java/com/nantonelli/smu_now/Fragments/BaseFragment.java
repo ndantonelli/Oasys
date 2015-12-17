@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.nantonelli.smu_now.Adapters.OasysRestfulAPI;
 import com.nantonelli.smu_now.Model.EventsRepo;
 import com.nantonelli.smu_now.OasysApplication;
 import com.squareup.otto.Bus;
@@ -15,13 +16,14 @@ import javax.inject.Inject;
 
 /**
  * Created by ndantonelli on 10/22/15.
+ * a base fragment so that we dont always have to do the same things in every fragment
  */
 public class BaseFragment extends Fragment {
-    @Inject
-    Picasso picasso;
-    @Inject
-    EventsRepo repo;
+    @Inject Picasso picasso;
+    @Inject EventsRepo repo;
     @Inject Bus eventBus;
+    @Inject OasysRestfulAPI service;
+
     protected android.os.Handler mHandler;
 
     @Override
@@ -41,6 +43,7 @@ public class BaseFragment extends Fragment {
         super.onPause();
         eventBus.unregister(this);
     }
+
     public void hide_keyboard_from() {
         View v = getView();
         if(v == null)

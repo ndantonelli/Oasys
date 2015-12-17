@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 /**
  * Created by ndantonelli on 11/13/15.
+ * holds all of the events used in the app, so that they can later be used to refresh
  */
 public class EventsRepo {
 
@@ -51,13 +52,16 @@ public class EventsRepo {
         eventBus.post(new EventsRepoRefreshed(2));
     }
 
+    //need to update when the user has chosen to attend an event
     public void updateAttending(Event event, boolean adding){
         for(int i = 0; i < timeEvents.size(); i++)
             if(timeEvents.get(i).getEvent_id() == event.getEvent_id())
                 timeEvents.get(i).setAttendance(event.getAttendance());
+
         for(int i = 0; i < popularEvents.size(); i++)
             if(popularEvents.get(i).getEvent_id() == event.getEvent_id())
                 popularEvents.get(i).setAttendance(event.getAttendance());
+
         if(adding)
             myEvents.add(event);
         else{
@@ -73,6 +77,7 @@ public class EventsRepo {
         return myEvents;
     }
 
+    //checks to see if the user is already attending this event
     public boolean checkAttending(int id){
         for(int i = 0; i < myEvents.size(); i++)
             if(myEvents.get(i).getEvent_id() == id)

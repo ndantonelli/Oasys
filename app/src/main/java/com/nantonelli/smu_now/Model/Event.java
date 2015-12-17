@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Created by ndantonelli on 11/13/15.
+ * building block of the whole app, everything relies upon the events
  */
 @Parcel
 public class Event {

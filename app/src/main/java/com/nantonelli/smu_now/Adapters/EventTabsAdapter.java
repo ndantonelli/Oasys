@@ -13,6 +13,7 @@ import com.nantonelli.smu_now.Model.Event;
 
 /**
  * Created by ndantonelli on 9/28/15.
+ * holds all of the fragments for showing description and comments in an event fragment
  */
 public class EventTabsAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;

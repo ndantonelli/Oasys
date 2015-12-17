@@ -7,6 +7,7 @@ import org.parceler.ParcelConstructor;
 
 /**
  * Created by ndantonelli on 12/10/15.
+ * used to parse comment json objects
  */
 @Parcel
 public class Comment {

@@ -23,25 +23,37 @@ import butterknife.OnClick;
 /**
  * Created by ndantonelli on 9/28/15.
  */
-public class DescriptionFragment extends Fragment {
-    private Event event;
+public class DescriptionFragment extends BaseFragment {
     @Bind(R.id.descriptions)TextView desc;
+
+    private Event event;
+
+    private static final String TAG = "DESCRIPTION_FRAGMENT";
 
     public static DescriptionFragment newInstance(Event event){
         DescriptionFragment desc = new DescriptionFragment();
         desc.event = event;
         return desc;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_description, container, false);
         ButterKnife.bind(this,v);
+
+        //add scrolling to the textview
         desc.setMovementMethod(ScrollingMovementMethod.getInstance());
+
+        //fill the description of the event in
         if(event != null)
             desc.setText(event.getDescription());
         return v;
     }
+
+
     @OnClick(R.id.uber_desc_button)
+    //open up the uber app and pass in the destination address
+    //if no uber app, send them to the marketplace
     public void stuff(){
         try {
             PackageManager pm = getActivity().getPackageManager();

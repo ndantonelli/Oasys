@@ -17,6 +17,8 @@ import junit.framework.Test;
  * Created by ndantonelli on 9/26/15.
  */
 public class PagerAdapter extends FragmentStatePagerAdapter {
+
+    //listener to swap back time fragments for on back implementation
     private final class TimePageListener implements TimePageFragmentListener{
         public void onSwitchToNextFragment(Event event){
             mFragmentManager.beginTransaction().remove(mFragmentAtPos0).commit();
@@ -27,6 +29,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             notifyDataSetChanged();
         }
     }
+
+    //listener to swap back popular fragments for on back implementation
     private final class PopPageListener implements TimePageFragmentListener{
         public void onSwitchToNextFragment(Event event){
             mFragmentManager.beginTransaction().remove(mFragmentAtPos1).commit();
@@ -37,14 +41,13 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             notifyDataSetChanged();
         }
     }
+
+    //listener to swap back my events fragments for on back implementation
     private final class MyPageListener implements TimePageFragmentListener{
         public void onSwitchToNextFragment(Event event){
             mFragmentManager.beginTransaction().remove(mFragmentAtPos2).commit();
-            Log.d("remove", "removed fragment at position 2");
-            if(mFragmentAtPos2 instanceof MyEventsFragment) {
+            if(mFragmentAtPos2 instanceof MyEventsFragment)
                 mFragmentAtPos2 = TestFrag.newInstance(listener2, event, 2);
-                Log.d("add", "added test fragment at position 2");
-            }
             else
                 mFragmentAtPos2 = MyEventsFragment.newInstance(listener2);
             notifyDataSetChanged();
@@ -54,11 +57,15 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     TimePageListener listener0 = new TimePageListener();
     PopPageListener listener1 = new PopPageListener();
     MyPageListener listener2 = new MyPageListener();
+
     private Fragment mFragmentAtPos0;
     private Fragment mFragmentAtPos1;
     private Fragment mFragmentAtPos2;
+
     private FragmentManager mFragmentManager;
+
     int mNumOfTabs;
+
     public PagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         mFragmentManager = fm;
@@ -66,6 +73,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
+    // determines whether a new fragments should be created or not
     public int getItemPosition(Object object){
         if (object instanceof TimeFragment && mFragmentAtPos0 instanceof TestFrag)
             return POSITION_NONE;

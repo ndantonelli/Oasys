@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * Created by ndantonelli on 12/13/15.
+ * basic listview with radio buttons to determine what event is being ubered to
  */
 public class upcomingListAdapter extends ArrayAdapter<Event> {
     private static class ViewHolder{
@@ -26,6 +27,7 @@ public class upcomingListAdapter extends ArrayAdapter<Event> {
         TextView title;
         TextView time;
     }
+
     private List<Event> events;
     private int selectedPosition = 0;
 
@@ -34,6 +36,7 @@ public class upcomingListAdapter extends ArrayAdapter<Event> {
         this.events = events;
     }
 
+    //need to reset the selected position
     public void addAll(List<Event> events){
         clear();
         super.addAll(events);
@@ -56,6 +59,8 @@ public class upcomingListAdapter extends ArrayAdapter<Event> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        //set the radio button as checked.  if the button is checked, notify the change
         viewHolder.button.setChecked(position == selectedPosition);
         viewHolder.button.setTag(position);
         viewHolder.button.setOnClickListener(new View.OnClickListener() {

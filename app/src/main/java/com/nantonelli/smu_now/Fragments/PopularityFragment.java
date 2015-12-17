@@ -37,47 +37,48 @@ public class PopularityFragment extends BaseFragment {
     private List<Event> events;
     private GridAdapter adapter;
     private SwipeRefreshLayout swipeLayout;
-    @Inject
-    OasysRestfulAPI restfulAPI;
-    @Inject
-    EventsRepo repo;
+
+    private static final String TAG = "POPULARITY_FRAGMENT";
 
     public static PopularityFragment newInstance(TimePageFragmentListener listener){
         PopularityFragment t = new PopularityFragment();
         t.listener = listener;
         return t;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_generic_layout, container, false);
         GridView view = (GridView) v.findViewById(R.id.event_grid);
+
+        //refresh on swipe up behavior
         swipeLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_container);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                restfulAPI.getPopularEvents(OasysApplication.getInstance().timeFormat, OasysApplication.getInstance().popularity, new Callback<List<Event>>() {
+                service.getPopularEvents(OasysApplication.getInstance().timeFormat, OasysApplication.getInstance().popularity, new Callback<List<Event>>() {
                     @Override
                     public void success(List<Event> events, Response response) {
-                        if (events != null) {
-                            Log.d("Successful Refresh", "we successfully refreshed 1");
+                        if (events != null)
                             repo.setPopularEvents(events);
-                        }
-                        else {
-                            Log.d("Successful Refresh", "we successfully refreshed 2");
+                        else
                             repo.setPopularEvents(new ArrayList<Event>());
-                        }
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         repo.setPopularEvents(new ArrayList<Event>());
-                        Log.d("failed Refresh", "we successfully refreshed 1");
+                        Log.d(TAG, "failed to refresh popular events", error);
                     }
                 });
             }
         });
+
+        //get all of the popular events from the repository
         events = repo.getPopularEvents();
         adapter = new GridAdapter(getActivity(), events, picasso);
+
+        //used for switching to event fragment when an event is clicked on
         view.setAdapter(adapter);
         view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -90,8 +91,8 @@ public class PopularityFragment extends BaseFragment {
     }
 
     @Subscribe
+    //Popularity events have been refreshed
     public void onRefresh(EventsRepoRefreshed event){
-        Log.d("TIME FRAG", "GETTING EVENTS");
         if(event.getType() == 1) {
             events = repo.getPopularEvents();
             adapter.refresh(events);

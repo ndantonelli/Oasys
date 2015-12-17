@@ -38,21 +38,18 @@ import retrofit.client.Response;
 
 /**
  * Created by ndantonelli on 9/28/15.
+ * An event specific fragment used to display an events specific info
+ * used to display header for an event and the description and comments
  */
-public class TestFrag extends Fragment {
+public class TestFrag extends BaseFragment {
     private TimePageFragmentListener listener;
     private TabLayout tabLayout;
     private Event event;
     private int pos;
     private boolean clicked = false;
 
-    @Inject Bus eventBus;
-    @Inject
-    Picasso picasso;
-    @Inject
-    OasysRestfulAPI service;
-    @Inject
-    EventsRepo repo;
+    private static final String TAG = "TEST_FRAGMENT";
+
     public static TestFrag newInstance(TimePageFragmentListener listener, Event event, int pos){
         TestFrag t = new TestFrag();
         t.listener = listener;
@@ -60,15 +57,19 @@ public class TestFrag extends Fragment {
         t.pos = pos;
         return t;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_event, container, false);
+
+        //inflate all of the header views
         ((TextView) v.findViewById(R.id.startTime)).setText(event.getTime_start());
         ((TextView) v.findViewById(R.id.startDate)).setText(event.getDate_start());
         ((TextView) v.findViewById(R.id.event_title)).setText(event.getEvent_name());
         ((TextView) v.findViewById(R.id.location)).setText(event.getAddress());
         final TextView aCount = ((TextView) v.findViewById(R.id.attendance_count));
         aCount.setText(Integer.toString(event.getAttendance()));
+
         ((OasysApplication)getActivity().getApplication()).getObjectGraph().inject(this);
         ButterKnife.bind(v);
 
@@ -77,6 +78,8 @@ public class TestFrag extends Fragment {
             check.setAlpha(1.0f);
             clicked = true;
         }
+
+        //allow users to attend and unattend an event
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,11 +119,15 @@ public class TestFrag extends Fragment {
             }
         });
 
-
+        //load the event photo into the background of the header
         ImageView image = (ImageView) v.findViewById(R.id.event_img);
         picasso.load(event.getPhoto_url()).priority(Picasso.Priority.HIGH).into(image);
+
+        //setup the tabs
         tabLayout = (TabLayout) v.findViewById(R.id.eventTabLayout);
         setupTabs();
+
+        //fill up the tabs with the description and comments fragments
         final ViewPager viewPager = (ViewPager) v.findViewById(R.id.pagerEvents);
         final EventTabsAdapter adapter = new EventTabsAdapter(getChildFragmentManager(), tabLayout.getTabCount(), event);
         viewPager.setAdapter(adapter);
@@ -148,21 +155,11 @@ public class TestFrag extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText("Description"));
         tabLayout.addTab(tabLayout.newTab().setText("Comments"));
     }
-    @Override
-    public void onResume(){
-        super.onResume();
-        eventBus.register(this);
-    }
-    @Override
-    public void onPause(){
-        super.onPause();
-        eventBus.unregister(this);
-    }
+
     @Subscribe
+    //need to back out of the fragment because it was open in the forefront
     public void onBackPressed(BackEvent event){
-        Log.d(" Position", " Pos: " + event.getPos());
         if(event.getPos() == pos){
-            Log.d("Event.pos: pos", event.getPos() + " : " + pos);
             listener.onSwitchToNextFragment(this.event);
             switch (pos){
                 case 0:

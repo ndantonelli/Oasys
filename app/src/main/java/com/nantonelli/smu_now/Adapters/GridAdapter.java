@@ -18,8 +18,11 @@ import java.util.List;
 
 /**
  * Created by ndantonelli on 10/20/15.
+ * Grid adapter used for all event gridviews on the main pages
  */
 public class GridAdapter extends BaseAdapter {
+
+    //prevent continuously refinding the views
     private static class ViewHolder{
         ImageView image;
         TextView text;
@@ -38,6 +41,7 @@ public class GridAdapter extends BaseAdapter {
         this.events = events;
         notifyDataSetChanged();
     }
+
     @Override
     public int getCount() {
         return events.size();
@@ -52,9 +56,9 @@ public class GridAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return 0;
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         ViewHolder vHold;
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {

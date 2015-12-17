@@ -13,11 +13,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activity_Event"
-            android:label="Event description page"
-            android:parentActivityName=".Activity_Home">
-        </activity>
     </application>
 
 </manifest>

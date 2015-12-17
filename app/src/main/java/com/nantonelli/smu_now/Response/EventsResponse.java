@@ -8,6 +8,8 @@ import java.util.List;
 
 /**
  * Created by ndantonelli on 11/13/15.
+ * used to auto parse the JSON returned from the server
+ * holds all events for an HTTP Request
  */
 @Parcel
 public class EventsResponse {

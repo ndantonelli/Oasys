@@ -38,48 +38,50 @@ public class MyEventsFragment extends BaseFragment{
     private List<Event> events;
     private GridAdapter adapter;
     private SwipeRefreshLayout swipeLayout;
-    @Inject
-    OasysRestfulAPI restfulAPI;
-    @Inject
-    EventsRepo repo;
+
+    private static final String TAG = "MY_EVENTS_FRAGMENT";
 
     public static MyEventsFragment newInstance(TimePageFragmentListener listener){
         MyEventsFragment t = new MyEventsFragment();
         t.listener = listener;
         return t;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_generic_layout, container, false);
         GridView view = (GridView) v.findViewById(R.id.event_grid);
+
+        //find the swipe refresh layout and put swipe refresh code
         swipeLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_container);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                restfulAPI.getMyEvents(OasysApplication.getInstance().timeFormat, OasysApplication.getInstance().uid, new Callback<List<Event>>() {
+                service.getMyEvents(OasysApplication.getInstance().timeFormat, OasysApplication.getInstance().uid, new Callback<List<Event>>() {
                     @Override
                     public void success(List<Event> events, Response response) {
-                        if (events != null) {
-                            Log.d("Successful Refresh", "we successfully refreshed 1");
+                        if (events != null)
                             repo.setMyEvents(events);
-                        }
-                        else {
-                            Log.d("Successful Refresh", "we successfully refreshed 2");
+                        else
                             repo.setMyEvents(new ArrayList<Event>());
-                        }
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         repo.setMyEvents(new ArrayList<Event>());
-                        Log.d("failed Refresh", "we successfully refreshed 1");
+                        Log.e(TAG, "Couldn't refresh My Events List", error);
                     }
                 });
             }
         });
+
+        //get all of my events from the event repository
         events = repo.getMyEvents();
         adapter = new GridAdapter(getActivity(), events, picasso);
+
         view.setAdapter(adapter);
+
+        //switch to event fragment when an event image is clicked on
         view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -91,9 +93,9 @@ public class MyEventsFragment extends BaseFragment{
     }
 
     @Subscribe
+    // my events in the event repository has been updated
     public void onRefresh(EventsRepoRefreshed event){
         if(event.getType() == 2) {
-            Log.d("MYFRAG", "GETTING EVENTS");
             events = repo.getMyEvents();
             adapter.refresh(events);
             swipeLayout.setRefreshing(false);

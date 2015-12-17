@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
-import com.nantonelli.smu_now.Activity_Event;
 import com.nantonelli.smu_now.Adapters.GridAdapter;
 import com.nantonelli.smu_now.Adapters.OasysRestfulAPI;
 import com.nantonelli.smu_now.Adapters.TimePageFragmentListener;
@@ -40,51 +39,54 @@ import retrofit.client.Response;
  * Created by ndantonelli on 9/26/15.
  */
 public class TimeFragment extends BaseFragment {
-    private Button switchButton;
     static TimePageFragmentListener listener;
     private List<Event> events;
     private GridAdapter adapter;
     private SwipeRefreshLayout swipeLayout;
-    @Inject OasysRestfulAPI restfulAPI;
-    @Inject EventsRepo repo;
+
+    private static final String TAG = "TIME_FRAGMENT";
 
     public static TimeFragment newInstance(TimePageFragmentListener listener){
         TimeFragment t = new TimeFragment();
         t.listener = listener;
         return t;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_generic_layout, container, false);
         swipeLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_container);
+
+        //refresh the upcoming events when swiped up
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                restfulAPI.getEvents(OasysApplication.getInstance().timeFormat, new Callback<List<Event>>() {
+                service.getEvents(OasysApplication.getInstance().timeFormat, new Callback<List<Event>>() {
                     @Override
                     public void success(List<Event> events, Response response) {
-                        if (events != null) {
-                            Log.d("Successful Refresh", "we successfully refreshed 1");
+                        if (events != null)
                             repo.setTimeEvents(events);
-                        }
-                        else {
-                            Log.d("Successful Refresh", "we successfully refreshed 2");
+                        else
                             repo.setTimeEvents(new ArrayList<Event>());
-                        }
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         repo.setTimeEvents(new ArrayList<Event>());
-                        Log.d("failed Refresh", "we successfully refreshed 1");
+                        Log.d(TAG, "failed to refresh the upcoming events", error);
                     }
                 });
             }
         });
+
+        //fill the events gridview with the upcoming events
         GridView view = (GridView) v.findViewById(R.id.event_grid);
         events = repo.getTimeEvents();
+
         adapter = new GridAdapter(getActivity(), events, picasso);
         view.setAdapter(adapter);
+
+        //on click open up the event specific fragments
         view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -96,9 +98,9 @@ public class TimeFragment extends BaseFragment {
     }
 
     @Subscribe
+    //activate whenever the Upcoming events have been refreshed
     public void onRefresh(EventsRepoRefreshed event){
         if(event.getType() == 0) {
-            Log.d("TIME FRAG", "Something cool happened in here!");
             events = repo.getTimeEvents();
             adapter.refresh(events);
             swipeLayout.setRefreshing(false);

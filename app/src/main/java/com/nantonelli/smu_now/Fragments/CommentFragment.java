@@ -33,17 +33,15 @@ import retrofit.client.Response;
 /**
  * Created by ndantonelli on 9/28/15.
  */
-public class CommentFragment extends Fragment {
+public class CommentFragment extends BaseFragment {
 
     private Event event;
     private ListView commentList;
     private EditText newComment;
     private TextView postComment;
-    @Inject
-    OasysRestfulAPI service;
-    @Inject
-    Picasso picasso;
     private CommentsAdapter adapter;
+
+    private static final String TAG = "COMMENT_FRAGMENT";
 
     public static CommentFragment newInstance(Event event){
         CommentFragment c = new CommentFragment();
@@ -55,11 +53,16 @@ public class CommentFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_comments, container, false);
         ((OasysApplication)getActivity().getApplication()).getObjectGraph().inject(this);
         ButterKnife.bind(v);
+
+        //bind all of the views
         newComment = (EditText) v.findViewById(R.id.comment_box);
         postComment = (TextView) v.findViewById(R.id.post_button);
         commentList = (ListView) v.findViewById(R.id.comments);
-        adapter = new CommentsAdapter(getContext(), new ArrayList<Comment>(), picasso);
+
+        adapter = new CommentsAdapter(getContext(), new ArrayList<Comment>());
         commentList.setAdapter(adapter);
+
+        //get all of the comments for a specific event
         if(event != null)
             service.getComments(event.getEvent_id(), new Callback<List<Comment>>() {
                 @Override
@@ -70,10 +73,11 @@ public class CommentFragment extends Fragment {
 
                 @Override
                 public void failure(RetrofitError error) {
-
+                    Log.e(TAG, "Couldnt get the event comments", error);
                 }
             });
 
+        //post a users comment to the server
         postComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +92,7 @@ public class CommentFragment extends Fragment {
 
                         @Override
                         public void failure(RetrofitError error) {
-
+                            Log.e(TAG, "Couldnt post the event comment", error);
                         }
                     });
                 }

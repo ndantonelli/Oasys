@@ -25,6 +25,12 @@ import retrofit.converter.GsonConverter;
 
 /**
  * Created by ndantonelli on 9/29/15.
+ * Creates singletons for all of the libraries used
+ * 2. Otto Event Bus
+ * 2. Events Repo: holds all event objects used within the app
+ * 3. Picasso Image Loading
+ * 4. Retrofit for Oasys Restful API
+ * 5. Retrofit for Weather Underground API
  */
 @Module(
         injects = {OasysApplication.class, Activity_Home.class, TestFrag.class,EventsRepo.class, TimeFragment.class, MyEventsFragment.class, PopularityFragment.class, CommentFragment.class}
